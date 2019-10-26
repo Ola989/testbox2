@@ -5,7 +5,7 @@
 
 ACTION=${1}
 
-VERSION=1.0
+VERSION=2.0
 
 function system_update() {
 			sudo yum update -y
@@ -25,6 +25,12 @@ function show_version() {
 echo "$VERSION"
 }
 
+function create_backup() {
+		ls ./*.txt
+		for file in ./*.txt;
+do cp "$file" "$file".bak;
+done
+}
 
 
 if [ -z "$1" ]; then
@@ -36,6 +42,9 @@ case "$ACTION" in
 		;;
 	-m|--metadata)
 		save_metadata
+		;;
+	-b|--backup)
+		create_backup
 		;;
 	*)
 	echo "Usage ${0} {-b|--backup|-v|--version|-m|--metadata}"
